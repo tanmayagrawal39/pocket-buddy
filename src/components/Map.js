@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
   const mapRef = useRef(null);
+  const apiKey = "v1.public.eyJqdGkiOiIzZmU2ZjQzMS1jNWUzLTRlMmQtOWVmZi02MjFhY2VhZDliNTUifTsj2AVwoUeuKuDzrb9WJ0hm97_0xNrHspyLV5IfJBX82sWiWMqjZkN2JyOiGZRH9TsbRKMsv0LzCU0W91Hz2YnFcWD2N1o9oiSMhaBodfpRdV317XxwTAeBV42VyYhKVWdpQeQAz0D39AL09rj8pOCkSfvPCNrBtLVR45uRQqEXTYA_VGtda7udkb5uxGyd4mzdpwwieoo70o5YVUTdZRPhWuyWZzbnAhqrd9XTdz0kV-FQixHDpOMxbbSq8MreXnl2N_PyfSsYqjsqqsq1y8YVmTokRFV2e6YrblK_WfpqwYIfktusCdBpHWvQWRftxnD-52SHEwWZJg_YBREUoCY.ZWU0ZWIzMTktMWRhNi00Mzg0LTllMzYtNzlmMDU3MjRmYTkx";
 
   useEffect(() => {
     let map;
@@ -18,6 +19,7 @@ function App() {
           container: mapRef.current,
           center: [103.76758813512407, 1.3242533699581813],
           zoom: 11,
+          apiKey: apiKey
         });
       }
       map.on('load', () => {
