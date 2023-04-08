@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pocketbuddy-dev-152700-authRole",
+      "UnauthRoleArn": "arn:aws:iam::885761624245:role/amplify-pocketbuddy-dev-152700-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::885761624245:role/amplify-pocketbuddy-dev-152700-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pocketbuddy-dev-152700-deployment",
+      "UnauthRoleName": "amplify-pocketbuddy-dev-152700-unauthRole",
+      "StackName": "amplify-pocketbuddy-dev-152700",
+      "StackId": "arn:aws:cloudformation:us-east-1:885761624245:stack/amplify-pocketbuddy-dev-152700/c2fd7580-d5de-11ed-a56d-0e4bc29eaad5",
+      "AmplifyAppId": "d2ib03olmekl7s"
+    },
+    "categories": {
+      "auth": {
+        "pocketbuddyc2b03328": {}
+      }
+    }
+  }
+}
