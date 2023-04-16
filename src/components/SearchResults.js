@@ -1,8 +1,9 @@
+//working code
+
+
 
 
 import React, { Component } from "react";
-
-import Card from "./Card";
 
 import { Link } from "react-router-dom";
 
@@ -14,12 +15,16 @@ class SearchResults extends Component
     {
         super(props);
         const { searchResultForItem } = props;
+        console.log("props in constructor----->",searchResultForItem)
         const itemCounts = searchResultForItem.map((item) => ({
-        id: item.id,
+        id: item.prodid,
         count: 0,
         }));
+
+
         this.state = {
         itemCounts,
+        updatedItems: [],
         };
         this.checkOutButtonClick=this.checkOutButtonClick.bind(this);
         this.incrementCount=this.incrementCount.bind(this);
@@ -29,6 +34,30 @@ class SearchResults extends Component
     {
         console.log("check out button clicked------>");
     }
+
+    componentDidUpdate(prevProps, prevState) {
+
+      const { searchResultForItem } = this.props;
+
+     
+
+      if (prevProps.searchResultForItem !== searchResultForItem) {
+        const itemCounts = searchResultForItem.map((item) => ({
+          id: item.prodid,
+          count: 0,
+        }));
+        this.setState({ itemCounts });
+      }
+
+      if (prevState.itemCounts !== this.state.itemCounts) 
+      {
+        const updatedItems = this.state.itemCounts.filter((item) => item.count > 0);
+        this.setState({ updatedItems });
+        console.log("set---------------->",updatedItems)
+      }
+
+  }
+    
 
     decrementCount(itemId)
     {
@@ -48,7 +77,7 @@ class SearchResults extends Component
           const updatedCounts = [...itemCounts];
           updatedCounts[index].count++;
           this.setState({ itemCounts: updatedCounts });
-          console.log("the increment counter is pressed");
+          
         }
     }
 
@@ -60,7 +89,7 @@ class SearchResults extends Component
 
         const buttonStyle={marginLeft:10, marginRight:10, marginTop:20};
         const {searchResultForItem}=this.props;
-        console.log("searchResultForItem in search results.js------>",searchResultForItem)
+        
 
         const isDisabled =
         this.state.itemCounts.filter((item) => item.count > 0).length === 0;
@@ -71,29 +100,29 @@ class SearchResults extends Component
                 {searchResultForItem.map((eachItem,index)=>
                     // <Card eachItem={item}/>
                     <div style={divstyle}>
-                <h4 style={innerStyle}>{eachItem.name}</h4>
+                <h4 style={innerStyle}>{eachItem.prodname}</h4>
+                <h4 style={innerStyle}>{eachItem.prodbrand}</h4>
                 
-                    <h4 style={innerStyle}>{eachItem.quantity}</h4>
+                    <h4 style={innerStyle}>{eachItem.prodquantity}</h4>
                 
                 
-                    <h4 style={innerStyle}>{eachItem.price}</h4>
-                    <h4 style={innerStyle}>{eachItem.expirydate}</h4>
+                    <h4 style={innerStyle}>{eachItem.prodcost}</h4>
+                    <h4 style={innerStyle}>{eachItem.prodexpirydate}</h4>
                
                 <div style={{display:'flex'}}>
                 <div style={buttonStyle}>
-                <button onClick={() => this.decrementCount(eachItem.id)}>
+                <button onClick={() => this.decrementCount(eachItem.prodid)}>
                   -
                 </button>
               </div>
                     
-                    <span style={{ paddingTop: 20 }}>
+              <span style={{ paddingTop: 20 }}>
                 {
-                  this.state.itemCounts.find((item) => item.id === eachItem.id)
-                    .count
+                  this.state.itemCounts.find((item) => item.id === eachItem.prodid)?.count || 0
                 }
               </span>
                         <div style={buttonStyle}>
-                <button onClick={() => this.incrementCount(eachItem.id)}>
+                <button onClick={() => this.incrementCount(eachItem.prodid)}>
                   +
                 </button>
               </div>

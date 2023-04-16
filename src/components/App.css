@@ -43,7 +43,6 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  height: 50vh;
-  width: 50vw;
-  margin-bottom: 25vh;
+  height: 35vh; 
+  width: 35vw; 
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import './index.css';
@@ -14,7 +14,7 @@ Amplify.configure(awsconfig);
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path:"/",
     element: <App />
   },
   {
@@ -31,11 +31,14 @@ const router = createBrowserRouter([
   }
 ]);
 
-ReactDOM.render(
-  <React.StrictMode>
-    <RouterProvider router={router}>
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  
+    <React.StrictMode>
+      <RouterProvider router={router}>
       <Map />
-    </RouterProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+      </RouterProvider>
+
+    </React.StrictMode>
+
 );

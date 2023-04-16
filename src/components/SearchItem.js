@@ -17,22 +17,58 @@ class SearchItem extends Component
         {
             searchItem:"",
             groceryItems: [
-                { id: 1, name: 'Milk', quantity: '1 liter', price: 2.50, expirydate:"12.01.2024" },
-                { id: 2, name: 'Almond Milk', quantity: '1 liter', price: 3.50,expirydate:"12.01.2024"},
-                { id: 3, name: 'Soy Milk', quantity: '1 liter', price: 3.00,expirydate:"12.01.2024"},
-                { id: 4, name: 'Bread', quantity: '1 loaf', price: 1.50,expirydate:"12.01.2024" },
-                { id: 5, name: 'Eggs', quantity: '1 dozen', price: 2.00,expirydate:"12.01.2024"},
+                // { prodid: 1, prodname: 'Milk', prodquantity: '1 liter', prodcost: 2.50, prodexpirydate:"12.01.2024",prodbrand:"AMUL"},
+                // { prodid: 2, prodname: 'Almond Milk', prodquantity: '1 liter', prodcost: 3.50,prodexpirydate:"12.01.2024",prodbrand:"AMUL 2"},
+                // { prodid: 3, prodname: 'Soy Milk', prodquantity: '1 liter', prodcost: 3.00,prodexpirydate:"12.01.2024",prodbrand:"AMUL 3"},
+                // { prodid: 4, prodname: 'Bread', prodquantity: '1 loaf', prodcost: 1.50,prodexpirydate:"12.01.2024", prodbrand:"AMUL 4" },
+                // { prodid: 5, prodname: 'Eggs', prodquantity: '1 dozen', prodcost: 2.00,prodexpirydate:"12.01.2024", prodbrand:"AMUL 5"},
 
-                { id: 6, name: 'mango', quantity: '1 kg', price: 3.00,expirydate:"12.01.2024"},
-                { id: 7, name: 'chocolate', quantity: '1 packet', price: 1.50,expirydate:"12.01.2024" },
-                { id: 8, name: 'cake', quantity: '1 kg', price: 2.00,expirydate:"12.01.2024"},
+                // { prodid: 6, prodname: 'mango', prodquantity: '1 kg', prodcost: 3.00,prodexpirydate:"12.01.2024", prodbrand:"AMUL 6"},
+                // { prodid: 7, prodname: 'chocolate', prodquantity: '1 packet', prodcost: 1.50,prodexpirydate:"12.01.2024",prodbrand:"AMUL 7"},
+                // { prodid: 8, prodname: 'cake', prodquantity: '1 kg', prodcost: 2.00,prodexpirydate:"12.01.2024", prodbrand:"AMUL 8"},
               ],
+              data:[]
         }
         this.handleChange=this.handleChange.bind(this);
     }
+
+    //API call to fetch data from backend
+    componentDidMount() {
+
+        console.log("entering the component did mount function------------------------>")
+
+        fetch('http://pocketbuddy-load-balancer-640843573.us-east-1.elb.amazonaws.com:80/getAllItems')
+      .then(response => response.json())
+      .then(groceryItems => {
+        console.log("bro working brooooo",groceryItems); // Log the fetched data
+        this.setState({ groceryItems }); // Update the state object with the fetched data
+      })
+      .catch(error => console.error(error)); 
+
+
+    //   fetch('http://localhost:8080/getAllItems', {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Access-Control-Allow-Origin': '*'
+    //     },
+        
+    //     })
+    //     .then(response => response.json())
+    //     .then(groceryItems => {
+    //         console.log("the grocery items is in the search items. js file------>",groceryItems); // Log the fetched data
+    //         this.setState({ groceryItems }); // Update the state object with the fetched data
+    //     })
+    //     .catch(error => console.error(error));
+
+    
+
+
+      }
+
+
     handleChange(event)
     {
-        const {searchItem}=this.state;
         this.setState({searchItem:event.target.value})
         
     }
@@ -42,10 +78,10 @@ class SearchItem extends Component
 
         const filteredSearchItem=groceryItems.filter((item)=>
             // item.name.toLowerCase().includes(searchItem.toLowerCase)
-            item.name.toLowerCase().includes(searchItem.toLowerCase())
+            item.prodname.toLowerCase().includes(searchItem.toLowerCase())
+         );
 
-            
-        );
+         console.log("filteredSearchItem ---------->",filteredSearchItem)
 
         return(
         <div style={{marginTop:40}}>
@@ -69,9 +105,13 @@ class SearchItem extends Component
                 </div>
             </div>
 
-            <div style={{display:'flex',flexDirection:'row',marginLeft:80,marginTop:10}}>
-                <SearchResults searchResultForItem={filteredSearchItem}/>
-            </div>
+            {filteredSearchItem ? 
+            (
+                <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 80, marginTop: 10 }}>
+                    <SearchResults searchResultForItem={filteredSearchItem} />
+                </div>
+            ) : null}
+
 
         </div>
         );

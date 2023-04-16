@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { BiUserCircle } from 'react-icons/bi';
 
@@ -32,12 +32,12 @@ function Header(props) {
           <div style={{ paddingTop: 20,marginLeft:100}}>
             <BiUserCircle size={40} />
           </div>
-          <Link to="/login">
+          <Link to="/">
             <button
                 style={{ marginTop: 30, width: 80, height: 30 ,marginLeft:100}}
                 onClick={onLoginClick}
             >
-                    Login
+                    Logout
             </button>
           </Link>
 
